@@ -1,0 +1,226 @@
+* {
+    scroll-behavior: smooth;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+nav {
+    padding: 10px 0px;
+    background-color: rgba(0, 0, 0, 0.153);
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav * {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+
+nav div:nth-child(1) * {
+    width: 40px;
+}
+
+nav div:nth-child(2) * {
+    padding: 20px;
+    text-transform: capitalize;
+}
+
+section {
+    width: 100%;
+    height: 100vh;
+
+}
+
+section video {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.section-1>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+    align-items: center;
+    height: 100vh;
+}
+
+.section-1>div>div {
+    text-align: center;
+}
+
+.section-1>div>div p:nth-child(1) {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#viewcar {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 2px solid white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+    transition: 0.3s ease-in-out;
+}
+
+#viewcar:hover {
+    color: black;
+    background-color: white;
+}
+
+.section-2 {
+    min-height: 100vh;
+    padding: 0px 0px 20px 0px;
+    background-color: black;
+}
+
+.content {
+    width: 100vw;
+    background-color: rgb(0, 0, 0);
+}
+
+.card-car {
+    background-color: white;
+    color: black;
+    display: inline-block;
+    padding: 0px 0px 20px 0px;
+    cursor: pointer;
+}
+
+.card-car>div>img {
+    width: 300px;
+    height: 200px;
+}
+
+.card-text {
+    margin: 10px;
+}
+
+#container {
+    padding: 20px 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+    min-height: 100vh;
+}
+
+.modal {
+    border-radius: 40px;
+    position: fixed;
+    position: center;
+    width: 90vw;
+    height: 80vh;
+    background-color: rgb(238, 237, 237);
+    z-index: 2;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.modal div {
+    flex: 1;
+}
+
+.small-modal-img *:hover {
+    opacity: 0.5;
+}
+
+.small-modal-img * {
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+}
+
+#container-modal {
+    display: none;
+}
+
+.btn-new-car {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* form {
+    text-align: center;
+    border-radius: 40px;
+    position: fixed;
+    position: center;
+    width: 90vw;
+    height: 80vh;
+    background-color: rgb(238, 237, 237);
+    z-index: 2;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 40px;
+} */
+
+.modal-new {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.modal-new label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-new input[type="text"],
+.modal-new input[type="file"] {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}

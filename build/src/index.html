@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showroom Tesla</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <nav>
+        <div style="margin-left: 15px;">
+            <img src="images/logo.png" alt="">
+        </div>
+        <div style="margin-right: 15px;">
+            <button class="btn-new-car" onclick="openBtnCar()">New Car</button>
+        </div>
+    </nav>
+
+    <section class="section-1">
+        <video autoplay loop muted>
+            <source src="./video/Model Y Deliveries Begin!.mp4">
+        </video>
+        <div>
+            <div>
+                <p>Experience Tesla</p>
+                <p>Schedule a Demo Drive Today</p>
+            </div>
+
+            <a id="viewcar" href="#allcar">View All Car</a>
+        </div>
+    </section>
+
+    <div class="section-2" id="allcar">
+        <h2 style="text-align: center; color: white; padding-top: 60px;">Product</h2>
+        <div id="container">
+        </div>
+    </div>
+
+    <div id="container-modal">
+        <div class="modal">
+            <div class="img" style="padding-left: 30px;">
+                <img id="imagebox" src="./images/teslas/tm.jpg" alt=""
+                    style="width: 100%; aspect-ratio: auto 1 / 1; border-radius: 20px;" id="thumbnail">
+                <div class="small-modal-img">
+                    <img src="./images/teslas/img1.webp" alt=""
+                        style="width: 15%; aspect-ratio: auto 1 / 1; border-radius: 10px; cursor: pointer;"
+                        onclick="changeImg(event)" id="img1">
+                    <img src="./images/teslas/2.jpg" alt=""
+                        style="width: 15%; aspect-ratio: auto 1 / 1; border-radius: 10px; cursor: pointer;"
+                        onclick="changeImg(event)" id="img2">
+                    <img src="./images/teslax/3.jpg" alt=""
+                        style="width: 15%; aspect-ratio: auto 1 / 1; border-radius: 10px; cursor: pointer;"
+                        onclick="changeImg(event)" id="img3">
+                </div>
+            </div>
+            <div>
+                <h1 id="title">Tesla Model 3</h1>
+                <p id="Production-time">productionYear: "June 22, 2012",</p>
+                <p id="Production-price">Price 2000k</p>
+                <p id="Production-torque">torque: "1,050 pounds feet"</p>
+                <button
+                    style="background-color: black; color: white; border: none; padding: 15px 25px; margin: 20px 0px; border-radius: 30px; cursor: pointer;"
+                    onclick="modalClose()">Close</button>
+                <button
+                    style="background-color: red; color: white; border: none; padding: 15px 25px; margin: 20px 0px; border-radius: 30px; cursor: pointer;"
+                    onclick="deleteItems(event)">Delete</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modal-new" class="modal-new">
+        <div class="modal-content">
+            <span class="close" onclick="closeBtnCar()">&times;</span>
+            <form id="form-add-car">
+                <div>
+                    <label for="thumbnail">Thumbnail</label>
+                    <input type="file" name="thumbnail" accept="image/png, image/jpg, image/jpeg, image/webp" id="thumbnail">
+                </div>
+                <div>
+                    <label for="img1">Foto 1</label>
+                    <input type="file" name="img1" accept="image/png, image/jpg, image/jpeg, image/webp" id="img1">
+                </div>
+                <div>
+                    <label for="img2">Foto 2</label>
+                    <input type="file" name="img2" accept="image/png, image/jpg, image/jpeg, image/webp" id="img2">
+                </div>
+                <div>
+                    <label for="img3">Foto 3</label>
+                    <input type="file" name="img3" accept="image/png, image/jpg, image/jpeg, image/webp" id="img3">
+                </div>
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" name="model" placeholder="model name..." id="model">
+                </div>
+                <div>
+                    <label for="Production year">Production year</label>
+                    <input type="text" name="Production year" placeholder="Production year..." id="production-year">
+                </div>
+                <div>
+                    <label for="price">Harga</label>
+                    <input type="text" name="harga" placeholder="Harga..." id="price">
+                </div>
+                <div>
+                    <label for="torque">Torque</label>
+                    <input type="text" name="torque" placeholder="Torque..." id="torque">
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
