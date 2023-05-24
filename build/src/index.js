@@ -56,7 +56,10 @@ class Car {
     }
     // delete Product
     deleteProductByModel(model) {
-        this.carProduct = this.carProduct.filter((product) => product.model !== model);
+        const index = this.carProduct.findIndex(product => product.model === model);
+        if (index !== -1) {
+            this.carProduct.splice(index, 1);
+        }
     }
 }
 // ==========================================================================================================
@@ -66,7 +69,7 @@ const closeBtnCar = () => document.getElementById('modal-new').style.display = '
 const openBtnCar = () => document.getElementById('modal-new').style.display = 'block';
 let card;
 const modal = (event) => {
-    const card = event.currentTarget;
+    card = event.currentTarget;
     const imagebox = document.querySelector('#imagebox');
     const img1 = document.querySelector('#img1');
     const img2 = document.querySelector('#img2');
@@ -100,7 +103,6 @@ const modalClose = () => {
 };
 const addCar = document.querySelector('#form-add-car');
 addCar.addEventListener('submit', (e) => {
-    const modal = document.querySelector('#modal-new');
     e.preventDefault();
     const fileInputs = [
         '#thumbnail',
@@ -137,6 +139,7 @@ addCar.addEventListener('submit', (e) => {
         };
         Promise.all(readers.map((reader, index) => loadFile(reader, values[index])))
             .then(([imageBoxUrl, img1Url, img2Url, img3Url]) => {
+            const modal = document.querySelector('#modal-new');
             modal.style.display = "none";
             obj.addProduct({
                 images: {

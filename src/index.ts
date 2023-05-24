@@ -76,7 +76,10 @@ class Car {
 
   // delete Product
   public deleteProductByModel(model: string): void {
-    this.carProduct = this.carProduct.filter((product) => product.model !== model);
+    const index = this.carProduct.findIndex(product => product.model === model);
+    if (index !== -1) {
+      this.carProduct.splice(index, 1);
+    }
   }
 }
 
@@ -97,9 +100,8 @@ const openBtnCar = () => document.getElementById('modal-new')!.style.display = '
 
 let card: any;
 
-
 const modal = (event: any) => {
-  const card = event.currentTarget;
+   card = event.currentTarget;
   const imagebox = document.querySelector<HTMLImageElement>('#imagebox');
   const img1 = document.querySelector<HTMLImageElement>('#img1');
   const img2 = document.querySelector<HTMLImageElement>('#img2');
@@ -121,6 +123,7 @@ const modal = (event: any) => {
   modal!.style.display = 'block';
 };
 
+
 const deleteItems = () => {
   const data = card.getAttribute('data-model');
   obj.deleteProductByModel(data);
@@ -128,18 +131,17 @@ const deleteItems = () => {
   document.getElementById('container-modal')!.style.display = 'none';
 };
 
+
 const changeImg = (value: ImageValue) => {
   const imagebox = document.querySelector('#imagebox') as HTMLImageElement | null;
   imagebox!.src = value.target.src;
 };
-
 const modalClose = () => {
   document.getElementById('container-modal')!.style.display = 'none';
 };
 
 const addCar = document.querySelector('#form-add-car') as HTMLFormElement;
 addCar!.addEventListener!('submit', (e) => {
-  const modal = document.querySelector<HTMLElement>('#modal-new');
   e.preventDefault();
 
   const fileInputs = [
@@ -185,8 +187,9 @@ addCar!.addEventListener!('submit', (e) => {
 
     Promise.all(readers.map((reader, index) => loadFile(reader, values[index]!)))
       .then(([imageBoxUrl, img1Url, img2Url, img3Url]) => {
+        const modal = document.querySelector<HTMLElement>('#modal-new');
         modal!.style.display = "none";
-        
+
         obj.addProduct({
           images: {
             tm: imageBoxUrl,
