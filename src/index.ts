@@ -51,31 +51,32 @@ class Car {
 
   // show Product
   public getProduct(): void {
-    const data: HTMLElement | null = document.querySelector('#container');
-    const mapping: string = this.carProduct.map((res) =>
+    const data = document.querySelector('#container');
+    const mapping = this.carProduct
+      .map(
+        (res) => `
+        <div id="card" >
+          <div class="card-car" id="card-car" onClick="modal(event)" data-model="${res.model}" data-title="${res.merk} ${res.model}" data-tm="${res.images.tm}" data-img1="${res.images.img1}" data-img2="${res.images.img2}" data-img3="${res.images.img3}" data-price="${res.price}" data-productionYear="${res.productionYear}" data-torque="${res.torque}">
+              <div>
+                  <img style="width: 300px; height: 200px;" src="${res.images.tm}" alt="${res.model}">
+              </div>
+              <div class="card-text">
+                  <h3>${res.merk} ${res.model}</h3>
+                  <p><span style="font-weight: 700;">Production Year : </span> ${res.productionYear}</p>
+                  <p><span style="font-weight: 700;">Price Start from : </span> ${res.price}</p>
+                  <p><span style="font-weight: 700;">Torque : </span> ${res.torque}</p>
+              </div>
+          </div>
+        </div>
       `
-    <div id="card" >
-    <div class="card-car" id="card-car" onClick="modal(event)" data-model="${res.model}" data-title="${res.merk} ${res.model}" data-tm="${res.images.tm}" data-img1="${res.images.img1}" data-img2="${res.images.img2}" data-img3="${res.images.img3}" data-price="${res.price}" data-productionYear="${res.productionYear}" data-torque="${res.torque}">
-        <div>
-            <img style="width: 300px; height: 200px;" src="${res.images.tm}" alt="${res.model}">
-        </div>
-        <div class="card-text">
-            <h3>${res.merk} ${res.model}</h3>
-            <p><span style="font-weight: 700;">Production Year : </span> ${res.productionYear}</p>
-            <p><span style="font-weight: 700;">Price Start from : </span> ${res.price}</p>
-            <p><span style="font-weight: 700;">Torque : </span> ${res.torque}</p>
-        </div>
-    </div>
-</div>
-    `).join('');
-    data!.innerHTML = mapping
+      )
+      .join('');
+    data!.innerHTML = mapping;
   }
+
   // delete Product
   public deleteProductByModel(model: string): void {
-    const index = this.carProduct.findIndex(product => product.model === model);
-    if (index !== -1) {
-      this.carProduct.splice(index, 1);
-    }
+    this.carProduct = this.carProduct.filter((product) => product.model !== model);
   }
 }
 
@@ -96,8 +97,9 @@ const openBtnCar = () => document.getElementById('modal-new')!.style.display = '
 
 let card: any;
 
+
 const modal = (event: any) => {
-  card = event.currentTarget;
+  const card = event.currentTarget;
   const imagebox = document.querySelector<HTMLImageElement>('#imagebox');
   const img1 = document.querySelector<HTMLImageElement>('#img1');
   const img2 = document.querySelector<HTMLImageElement>('#img2');
@@ -107,10 +109,10 @@ const modal = (event: any) => {
   const price = document.querySelector<HTMLElement>('#Production-price');
   const torque = document.querySelector<HTMLElement>('#Production-torque');
 
-  imagebox!.setAttribute('src', card!.getAttribute('data-tm'));
-  img1!.setAttribute('src', card!.getAttribute('data-img1'));
-  img2!.setAttribute('src', card!.getAttribute('data-img2'));
-  img3!.setAttribute('src', card!.getAttribute('data-img3'));
+  imagebox!.src = card!.getAttribute('data-tm');
+  img1!.src = card!.getAttribute('data-img1');
+  img2!.src = card!.getAttribute('data-img2');
+  img3!.src = card!.getAttribute('data-img3');
   title!.textContent = card!.getAttribute('data-title') || '';
   productionYear!.textContent = card!.getAttribute('data-productionYear') || '';
   torque!.textContent = card!.getAttribute('data-torque') || '';
@@ -119,90 +121,91 @@ const modal = (event: any) => {
   modal!.style.display = 'block';
 };
 
-
 const deleteItems = () => {
-  const data = card.getAttribute('data-model')
-  obj.deleteProductByModel(data)
-  obj.getProduct()
+  const data = card.getAttribute('data-model');
+  obj.deleteProductByModel(data);
+  obj.getProduct();
   document.getElementById('container-modal')!.style.display = 'none';
-}
-
+};
 
 const changeImg = (value: ImageValue) => {
   const imagebox = document.querySelector('#imagebox') as HTMLImageElement | null;
   imagebox!.src = value.target.src;
 };
+
 const modalClose = () => {
   document.getElementById('container-modal')!.style.display = 'none';
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' || event.keyCode === 27) {
-      document.getElementById('container-modal')!.style.display = 'none';
-    }
-  })
-}
-const addCar = document.querySelector('#form-add-car') as HTMLFormElement;
+};
 
+const addCar = document.querySelector('#form-add-car') as HTMLFormElement;
 addCar!.addEventListener!('submit', (e) => {
+  const modal = document.querySelector<HTMLElement>('#modal-new');
   e.preventDefault();
 
-  const imageBox = (document.querySelector('#thumbnail') as HTMLInputElement).files;
-  const img1 = (document.querySelector('input[name="img1"]') as HTMLInputElement).files;
-  const img2 = (document.querySelector('input[name="img2"]') as HTMLInputElement).files;
-  const img3 = (document.querySelector('input[name="img3"]') as HTMLInputElement).files;
-  const model = document.querySelector<HTMLInputElement>('#model')!.value;
-  const productionYear = document.querySelector<HTMLInputElement>('#production-year')!.value;
-  const price = document.querySelector<HTMLInputElement>('#price')!.value;
-  const torque = document.querySelector<HTMLInputElement>('#torque')!.value;
+  const fileInputs = [
+    '#thumbnail',
+    'input[name="img1"]',
+    'input[name="img2"]',
+    'input[name="img3"]'
+  ];
 
-  if(imageBox && img1 && img2 && img3 && model && productionYear && price && torque ) {
-    const imageBoxFile = imageBox[0];
-    const img1File = img1[0];
-    const img2File = img2[0];
-    const img3File = img3[0];
+  const values = fileInputs.map((selector) => {
+    const fileInput = document.querySelector<HTMLInputElement>(selector)!.files;
+    return fileInput ? fileInput[0] : null;
+  });
 
-    const imageBoxReader = new FileReader();
-    const img1Reader = new FileReader();
-    const img2Reader = new FileReader();
-    const img3Reader = new FileReader();
+  const [imageBoxFile, img1File, img2File, img3File] = values;
 
-    imageBoxReader.onload = () => {
-      const imageBoxUrl = imageBoxReader.result as string;
-      const img1Url = img1Reader.result as string;
-      const img2Url = img2Reader.result as string;
-      const img3Url = img3Reader.result as string;
+  const inputValues = [
+    '#model',
+    '#production-year',
+    '#price',
+    '#torque'
+  ];
 
-      const modal = document.querySelector<HTMLElement>('#modal-new');
-      modal!.style.display = "none";
-      
-      obj.addProduct({
-        images: {
-          tm: imageBoxUrl,
-          img1: img1Url,
-          img2: img2Url,
-          img3: img3Url,
-        },
-        merk: "Tesla",
-        model: model,
-        productionYear: productionYear,
-        price: price,
-        torque: torque,
+  const inputObjects = inputValues.map((selector) => {
+    const input = document.querySelector<HTMLInputElement>(selector);
+    return input ? input.value : null;
+  });
+
+  const [model, productionYear, price, torque] = inputObjects;
+
+  if (imageBoxFile && img1File && img2File && img3File && model && productionYear && price && torque) {
+    const readers = [new FileReader(), new FileReader(), new FileReader(), new FileReader()];
+
+    const loadFile = (reader: FileReader, file: File) => {
+      return new Promise<string>((resolve, reject) => {
+        reader.onload = () => {
+          resolve(reader.result as string);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
       });
-      obj.getProduct()
-      addCar.reset()
+    };
 
-    }
+    Promise.all(readers.map((reader, index) => loadFile(reader, values[index]!)))
+      .then(([imageBoxUrl, img1Url, img2Url, img3Url]) => {
+        modal!.style.display = "none";
+        
+        obj.addProduct({
+          images: {
+            tm: imageBoxUrl,
+            img1: img1Url,
+            img2: img2Url,
+            img3: img3Url,
+          },
+          merk: "Tesla",
+          model,
+          productionYear,
+          price,
+          torque,
+        });
 
-    img1Reader.onload = () => {
-      imageBoxReader.readAsDataURL(imageBoxFile);
-    };
-    img2Reader.onload = () => {
-      img1Reader.readAsDataURL(img1File);
-    };
-    img3Reader.onload = () => {
-      img2Reader.readAsDataURL(img2File);
-    };
-    img3Reader.readAsDataURL(img3File);
+        obj.getProduct();
+        addCar.reset();
+      });
   }
-
 });
+
+
 
